@@ -1,7 +1,13 @@
+"use client";
+
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 export default function Home() {
+  const router = useRouter();
+  const [location, setLocation] = useState("");
+
   return (
     <>
       <section>
@@ -36,10 +42,17 @@ export default function Home() {
             </div>
             <div className="flex gap-2 sm:w-2/3 md:w-1/2 xl:w-1/3">
               <input
+                name="search"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
                 className="rounded p-2.5 w-full"
                 placeholder="Search Resturants"
               />
-              <button className="bg-[#FFB703] hover:bg-yellow-500 hover:text-white p-2.5 rounded">
+              <button className="bg-[#FFB703] hover:bg-yellow-500 hover:text-white p-2.5 rounded"
+              onClick={()=> {
+                if(location === "alfonso") return router.push("/search");
+              }}
+              >
                 Search
               </button>
             </div>
