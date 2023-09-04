@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function Page() {
+export default function Home() {
   return (
-    <div>New Page</div>
+    <div>Home</div>
   )
 }
