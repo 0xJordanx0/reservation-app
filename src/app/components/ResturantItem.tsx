@@ -2,9 +2,9 @@ import Link from "next/link";
 
 export default function ResturantItem() {
   return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md">
+    <div className="max-w-sm bg-white border border-orange border-gray-200 rounded-lg shadow-md">
       <a href="#">
-        <img className="rounded-t-lg" src="/resturant.webp" alt="" />
+        <img className="rounded-t-lg" src="/resturant.webp" />
       </a>
       <div className="p-5">
         <a href="#">
