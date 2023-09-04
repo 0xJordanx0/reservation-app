@@ -10,7 +10,7 @@ export default function Header() {
           <div className="text-center">
             <img src="/food.png" className="w-60" />
             <div className="prose">
-              <h2 className="text-xl font-semibold">Online Foods Booking</h2>
+              <h2 className="text-xl font-semibold">Online Food Reservation</h2>
             </div>
           </div>
          <SearchBar />
