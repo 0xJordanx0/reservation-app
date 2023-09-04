@@ -1,5 +1,3 @@
-"use client";
-
 export default function Header() {
   return (
     <div className="flex items-center justify-center bg-orange h-[30vh]">
