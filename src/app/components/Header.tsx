@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function Hero() {
+export default function Header() {
   const router = useRouter();
   const [location, setLocation] = useState("");
   return (
