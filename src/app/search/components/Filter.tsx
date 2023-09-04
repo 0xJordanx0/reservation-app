@@ -4,8 +4,15 @@ import {
     MinusIcon,
     PlusIcon,
   } from "@heroicons/react/20/solid";
-  
-export default function Filter({subCategories, filters}) {
+
+import { SubCategory, Filter } from "../../../../types/global";
+
+type Props = {
+    subCategories: SubCategory[];
+    filters: Filter[]; 
+};
+
+export default function Filter({subCategories, filters}:Props) {
   return (
     <form className="hidden lg:block">
       <h3 className="sr-only">Categories</h3>
