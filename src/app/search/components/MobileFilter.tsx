@@ -6,7 +6,16 @@ import {
   PlusIcon,
 } from "@heroicons/react/20/solid";
 
-export default function MobileFilter({filters, mobileFiltersOpen, setMobileFiltersOpen, subCategories}) {
+import { SubCategory, Filter } from "../../../../types/global";
+
+type Props = {
+  subCategories: SubCategory[];
+  filters: Filter[];
+  mobileFiltersOpen: boolean; 
+  setMobileFiltersOpen: (value: boolean) => void;
+};
+
+export default function MobileFilter({filters, mobileFiltersOpen, setMobileFiltersOpen, subCategories}:Props) {
 
   return (
     <Transition.Root show={mobileFiltersOpen} as={Fragment}>
