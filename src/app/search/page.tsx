@@ -2,10 +2,7 @@
 
 import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import {
-  ChevronDownIcon,
-  FunnelIcon,
-} from "@heroicons/react/20/solid";
+import { ChevronDownIcon, FunnelIcon } from "@heroicons/react/20/solid";
 import Results from "./components/Results";
 import Header from "./components/Header";
 import Filter from "./components/Filter";
@@ -72,10 +69,15 @@ export default function Example() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   return (
-    <div className="bg-white">
-      <MobileFilter subCategories={subCategories} filters={filters} mobileFiltersOpen={mobileFiltersOpen} setMobileFiltersOpen={setMobileFiltersOpen}/>
+    <>
+      <Header />
+      <MobileFilter
+        subCategories={subCategories}
+        filters={filters}
+        mobileFiltersOpen={mobileFiltersOpen}
+        setMobileFiltersOpen={setMobileFiltersOpen}
+      />
       <div>
-        <Header />
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900">
@@ -142,7 +144,7 @@ export default function Example() {
               Products
             </h2>
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-              <Filter  subCategories={subCategories} filters={filters}/>
+              <Filter subCategories={subCategories} filters={filters} />
               <div className="lg:col-span-3">
                 <Results />
               </div>
@@ -150,6 +152,6 @@ export default function Example() {
           </section>
         </main>
       </div>
-    </div>
+      </>
   );
 }
