@@ -1,7 +1,13 @@
-import Header from "../components/Header";
+import { Metadata } from "next";
 import Reservation from "../components/Reservation";
 import ResturantNavbar from "../components/RestaurantNavbar";
 import Menu from "./components/Menu";
+
+export const metadata: Metadata = {
+  title: "Menu Of Alfonso Restuarant | Yummy Foods",
+  description: "Online Reservation System",
+};
+
 export default function Resturant() {
   return (
     <div className="-mt-20 max-w-7xl mx-auto p-6 grid gap-[5%] grid-cols-[67.5%,27.5%]">
