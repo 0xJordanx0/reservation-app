@@ -16,9 +16,11 @@ model Restaurant {
   main_image String
   description String
   open_time String
+  close_time String
   slug String @unique
   price PRICE
   items Item[]
+  images String[]
   location_id Int
   location Location @relation(fields: [location_id], references: [id])
   cuisine_id Int
