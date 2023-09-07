@@ -1,15 +1,15 @@
 import React from "react";
 
-export default function Images() {
+export default function Images({images}:{images: string[]}) {
   return (
     <div>
       <div className="prose text-xs mb-4">
-        <h1>Photos</h1>
+        <h1>Photos ({images.length})</h1>
       </div>
       <div className="grid grid-cols-3 gap-4">
-        <img className="rounded-md" src="/resturant.webp" />
-        <img className="rounded-md" src="/resturant.webp" />
-        <img className="rounded-md" src="/resturant.webp" />
+        {images.map(image => (
+          <img className="rounded-md" src={image} />
+        ))}
       </div>
     </div>
   );
