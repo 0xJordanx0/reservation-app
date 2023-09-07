@@ -1,3 +1,6 @@
+import { Cuisine, Location, PRICE } from "@prisma/client";
+
+
 type SubCategory = {
     name: string;
     href: string;
@@ -15,4 +18,25 @@ type Filter = {
     options: FilterOption[];
 };
 
-export {SubCategory, FilterOption, Filter};
+//Interfaces
+
+interface Restuarant{
+    id: number,
+    name: string,
+    description: string,
+    main_image: string,
+    cuisine: Cuisine,
+    location: Location,
+    price: PRICE,
+    slug: string
+}
+
+interface RestuarantInfo {
+    id: number,
+    name: string,
+    description: string,
+    images: string[],
+    slug: string
+}
+
+export {SubCategory, FilterOption, Filter, Restuarant, RestuarantInfo};
