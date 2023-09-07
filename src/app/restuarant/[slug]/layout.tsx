@@ -9,12 +9,14 @@ export const metadata: Metadata = {
 
 export default function RestuarantLayout({
   children,
+  params
 }: {
   children: React.ReactNode;
+  params: {slug: string}
 }) {
   return (
     <section>
-      <Header />
+      <Header name={params.slug}/>
       {children}
     </section>
   );
