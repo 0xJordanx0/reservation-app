@@ -19,7 +19,9 @@ export default function SearchBar() {
       <button
         className="bg-[#FFB703] hover:bg-yellow-500 hover:text-white p-2.5 rounded"
         onClick={() => {
-          if (location === "alfonso") return router.push("/search");
+          if (location === "") return;
+          router.push(`/search?city=${location}`);
+          setLocation("");
         }}
       >
         Search

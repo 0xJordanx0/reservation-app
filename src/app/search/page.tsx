@@ -7,6 +7,7 @@ import Results from "./components/Results";
 import Header from "./components/Header";
 import Filter from "./components/Filter";
 import MobileFilter from "./components/MobileFilter";
+import { useSearchParams } from "next/navigation";
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -65,9 +66,10 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
+export default function Search() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-
+  const searchQuery = useSearchParams();
+  console.log(searchQuery.get('city'));
   return (
     <>
       <Header />
