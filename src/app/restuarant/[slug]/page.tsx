@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { RestuarantInfo } from "../../../../types/global";
 import Overview from "./components/Overview";
 import Reservation from "./components/Reservation";
@@ -20,7 +21,7 @@ const fetchRestaurant = async(slug: string): Promise<RestuarantInfo> => {
   })
 
   if(!restaurant){
-    throw new Error("null");
+    notFound()
   }
   return restaurant;
 } 
