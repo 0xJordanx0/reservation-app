@@ -6,23 +6,6 @@ type SortOption = {
     current: boolean
 }
 
-type SubCategory = {
-    name: string;
-    href: string;
-};
-
-type FilterOption = {
-    value: string;
-    label: string;
-    checked: boolean;
-};
-  
-type Filter = {
-    id: string;
-    name: string;
-    options: FilterOption[];
-};
-
 //Interfaces
 
 interface Restuarant{
@@ -44,4 +27,10 @@ interface RestuarantInfo {
     slug: string
 }
 
-export {SortOption, SubCategory, FilterOption, Filter, Restuarant, RestuarantInfo};
+interface SearchParams {
+    city?: string, 
+    cuisine?: string, 
+    price?: PRICE 
+}
+
+export {SortOption, Restuarant, RestuarantInfo, SearchParams};
