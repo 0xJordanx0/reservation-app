@@ -4,13 +4,16 @@ import React, { useState } from "react";
 import MobileFilter from "./MobileFilter";
 import { FunnelIcon } from "@heroicons/react/20/solid";
 import { Cuisine, Location } from "@prisma/client";
+import { SearchParams } from "../../../../types/global";
 
 export default function FilterToggle({
   locations,
   cuisines,
+  searchParams,
 }: {
-  locations: Location[]
-  cuisines: Cuisine[];
+  locations: Location[],
+  cuisines: Cuisine[],
+  searchParams: SearchParams
 }) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
@@ -19,6 +22,7 @@ export default function FilterToggle({
       <MobileFilter
         locations={locations}
         cuisines={cuisines}
+        searchParams={searchParams}
         mobileFiltersOpen={mobileFiltersOpen}
         setMobileFiltersOpen={setMobileFiltersOpen}
       />

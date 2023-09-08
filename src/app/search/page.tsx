@@ -85,7 +85,7 @@ export default async function Search({
             </h1>
             <div className="flex items-center">
               <Sort sortOptions={sortOptions}/>
-              <FilterToggle locations={locations} cuisines={cuisines} />
+              <FilterToggle locations={locations} cuisines={cuisines} searchParams={searchParams} />
             </div>
           </div>
 

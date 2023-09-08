@@ -6,16 +6,19 @@ import {
   PlusIcon,
 } from "@heroicons/react/20/solid";
 
-import { SubCategory, Filter } from "../../../../types/global";
+import { Cuisine, Location } from "@prisma/client";
+import Link from "next/link";
+import { SearchParams } from "../../../../types/global";
 
 type Props = {
-  subCategories: SubCategory[];
-  filters: Filter[];
-  mobileFiltersOpen: boolean; 
-  setMobileFiltersOpen: (value: boolean) => void;
+  locations: Location[],
+  cuisines: Cuisine[],
+  searchParams: SearchParams,
+  mobileFiltersOpen: boolean,
+  setMobileFiltersOpen: (value: boolean) => void
 };
 
-export default function MobileFilter({filters, mobileFiltersOpen, setMobileFiltersOpen, subCategories}:Props) {
+export default function MobileFilter({locations, cuisines, searchParams, mobileFiltersOpen, setMobileFiltersOpen}:Props) {
 
   return (
     <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -61,74 +64,23 @@ export default function MobileFilter({filters, mobileFiltersOpen, setMobileFilte
 
               {/* Filters */}
               <form className="mt-4 border-t border-gray-200">
-                <h3 className="sr-only">Categories</h3>
+                <h3 className="sr-only">Locations</h3>
                 <ul role="list" className="px-2 py-3 font-medium text-gray-900">
-                  {subCategories.map((category) => (
-                    <li key={category.name}>
-                      <a href={category.href} className="block px-2 py-3">
-                        {category.name}
-                      </a>
+                  {locations.map((location) => (
+                    <li key={location.name}>
+                        <Link className="capitalize" href={{query: {...searchParams, city: location.name}}}>{location.name}</Link>
                     </li>
                   ))}
                 </ul>
 
-                {filters.map((section) => (
-                  <Disclosure
-                    as="div"
-                    key={section.id}
-                    className="border-t border-gray-200 px-4 py-6"
-                  >
-                    {({ open }) => (
-                      <>
-                        <h3 className="-mx-2 -my-3 flow-root">
-                          <Disclosure.Button className="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
-                            <span className="font-medium text-gray-900">
-                              {section.name}
-                            </span>
-                            <span className="ml-6 flex items-center">
-                              {open ? (
-                                <MinusIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                              ) : (
-                                <PlusIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                              )}
-                            </span>
-                          </Disclosure.Button>
-                        </h3>
-                        <Disclosure.Panel className="pt-6">
-                          <div className="space-y-6">
-                            {section.options.map((option, optionIdx) => (
-                              <div
-                                key={option.value}
-                                className="flex items-center"
-                              >
-                                <input
-                                  id={`filter-mobile-${section.id}-${optionIdx}`}
-                                  name={`${section.id}[]`}
-                                  defaultValue={option.value}
-                                  type="checkbox"
-                                  defaultChecked={option.checked}
-                                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                />
-                                <label
-                                  htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                                  className="ml-3 min-w-0 flex-1 text-gray-500"
-                                >
-                                  {option.label}
-                                </label>
-                              </div>
-                            ))}
-                          </div>
-                        </Disclosure.Panel>
-                      </>
-                    )}
-                  </Disclosure>
-                ))}
+                <h3 className="sr-only">Cuisines</h3>
+                <ul role="list" className="px-2 py-3 font-medium text-gray-900">
+                  {cuisines.map((cuisine) => (
+                    <li key={cuisine.name}>
+                        <Link className="capitalize" href={{query: {...searchParams, cuisine: cuisine.name}}}>{cuisine.name}</Link>
+                    </li>
+                  ))}
+                </ul>
               </form>
             </Dialog.Panel>
           </Transition.Child>
