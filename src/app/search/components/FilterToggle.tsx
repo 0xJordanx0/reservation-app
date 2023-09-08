@@ -3,22 +3,22 @@
 import React, { useState } from "react";
 import MobileFilter from "./MobileFilter";
 import { FunnelIcon } from "@heroicons/react/20/solid";
-import { Filter, SubCategory } from "../../../../types/global";
+import { Cuisine, Location } from "@prisma/client";
 
 export default function FilterToggle({
-  subCategories,
-  filters,
+  locations,
+  cuisines,
 }: {
-  subCategories: SubCategory[];
-  filters: Filter[];
+  locations: Location[]
+  cuisines: Cuisine[];
 }) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   return (
     <div>
       <MobileFilter
-        subCategories={subCategories}
-        filters={filters}
+        locations={locations}
+        cuisines={cuisines}
         mobileFiltersOpen={mobileFiltersOpen}
         setMobileFiltersOpen={setMobileFiltersOpen}
       />

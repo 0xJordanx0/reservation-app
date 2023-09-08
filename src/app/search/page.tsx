@@ -3,6 +3,10 @@ import Header from "./components/Header";
 import Filter from "./components/Filter";
 import FilterToggle from "./components/FilterToggle";
 import Sort from "./components/Sort";
+import { Location, Cuisine, PrismaClient } from "@prisma/client";
+import { Restuarant, SearchParams } from "../../../types/global";
+
+const prisma = new PrismaClient();
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -12,57 +16,64 @@ const sortOptions = [
   { name: "Price: High to Low", href: "#", current: false },
 ];
 
-const subCategories = [
-  { name: "Totes", href: "#" },
-  { name: "Backpacks", href: "#" },
-  { name: "Travel Bags", href: "#" },
-  { name: "Hip Bags", href: "#" },
-  { name: "Laptop Sleeves", href: "#" },
-];
-const filters = [
-  {
-    id: "color",
-    name: "Color",
-    options: [
-      { value: "white", label: "White", checked: false },
-      { value: "beige", label: "Beige", checked: false },
-      { value: "blue", label: "Blue", checked: true },
-      { value: "brown", label: "Brown", checked: false },
-      { value: "green", label: "Green", checked: false },
-      { value: "purple", label: "Purple", checked: false },
-    ],
-  },
-  {
-    id: "category",
-    name: "Category",
-    options: [
-      { value: "new-arrivals", label: "New Arrivals", checked: false },
-      { value: "sale", label: "Sale", checked: false },
-      { value: "travel", label: "Travel", checked: true },
-      { value: "organization", label: "Organization", checked: false },
-      { value: "accessories", label: "Accessories", checked: false },
-    ],
-  },
-  {
-    id: "size",
-    name: "Size",
-    options: [
-      { value: "2l", label: "2L", checked: false },
-      { value: "6l", label: "6L", checked: false },
-      { value: "12l", label: "12L", checked: false },
-      { value: "18l", label: "18L", checked: false },
-      { value: "20l", label: "20L", checked: false },
-      { value: "40l", label: "40L", checked: true },
-    ],
-  },
-];
+const fetchRestaurants = async (searchParams: SearchParams): Promise<Restuarant[]> => {
+  const select = {
+    id: true,
+    name: true,
+    description: true,
+    main_image: true,
+    slug: true,
+    price: true,
+    cuisine: true,
+    location: true,
+  }
 
-export default function Search({
+  const where: any = {}
+
+  if (searchParams.city){
+    const location = {
+      name: {
+        equals: searchParams.city.toLowerCase()
+      }
+    }
+    where.location = location;
+  }
+
+  if(searchParams.cuisine){
+    const cuisine = {
+      name: {
+        equals: searchParams.cuisine.toLowerCase()
+      }
+    }
+    where.cuisine = cuisine;
+  }
+
+  const restaurants = await prisma.restaurant.findMany({
+    where,
+    select
+  });
+  
+  return restaurants;
+};
+
+const fetchLocations = async():Promise<Location[]> => {
+  const locations = await prisma.location.findMany();
+  return locations;
+}
+
+const fetchCuisines= async():Promise<Cuisine[]> => {
+  const cuisines = await prisma.cuisine.findMany();
+  return cuisines;
+}
+
+export default async function Search({
   searchParams,
 }: {
-  searchParams: { city: string };
+  searchParams: SearchParams;
 }) {
-
+  const restaurants = await fetchRestaurants(searchParams);
+  const locations = await fetchLocations();
+  const cuisines = await fetchCuisines();
   return (
     <>
       <Header />
@@ -74,7 +85,7 @@ export default function Search({
             </h1>
             <div className="flex items-center">
               <Sort sortOptions={sortOptions}/>
-              <FilterToggle subCategories={subCategories} filters={filters} />
+              <FilterToggle locations={locations} cuisines={cuisines} />
             </div>
           </div>
 
@@ -83,9 +94,9 @@ export default function Search({
               Products
             </h2>
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-              <Filter subCategories={subCategories} filters={filters} />
+              <Filter locations={locations} cuisines={cuisines} searchParams={searchParams} />
               <div className="lg:col-span-3">
-                <Results searchQuery={searchParams.city} />
+                <Results restaurants={restaurants}/>
               </div>
             </div>
           </section>
