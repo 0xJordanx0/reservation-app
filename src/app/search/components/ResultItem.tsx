@@ -1,23 +1,24 @@
 import React from "react";
 import Link from "next/link";
+import { Restuarant } from "../../../../types/global";
 
-export default function ResultItem() {
+
+export default function ResultItem({restaurant}:{restaurant: Restuarant}) {
   return (
     <div className="flex flex-col sm:flex-row items-center sm:items-stretch">
-      <img className="rounded-l w-96" src="/resturant.webp" alt="" />
+      <img className="rounded-l w-96" src={restaurant.main_image} alt="" />
       <div className="max-w-sm bg-white border border-gray-200 rounded-r shadow-md">
         <div className="flex flex-col h-full p-4 sm:px-6 sm:py-0 justify-center">
-          <a href="#">
+          <Link href={`/restuarant/${restaurant.slug}`}>
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-              Alfonso Restuarant
+              {restaurant.name}
             </h5>
-          </a>
+          </Link>
           <p className="mb-3 font-normal text-gray-700">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Culpa
-            magnam animi magni eum deleniti laudantium!
+            {restaurant.description}
           </p>
           <Link
-            href="#"
+            href={`/restuarant/${restaurant.slug}`}
             className="inline-flex items-center w-full justify-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-700 rounded-lg hover:bg-orange-800 focus:ring-0 focus:outline-none"
           >
             View Food
