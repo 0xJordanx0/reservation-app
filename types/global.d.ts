@@ -1,5 +1,10 @@
 import { Cuisine, Location, PRICE } from "@prisma/client";
 
+type SortOption = {
+    name: string,
+    href: string,
+    current: boolean
+}
 
 type SubCategory = {
     name: string;
@@ -39,4 +44,4 @@ interface RestuarantInfo {
     slug: string
 }
 
-export {SubCategory, FilterOption, Filter, Restuarant, RestuarantInfo};
+export {SortOption, SubCategory, FilterOption, Filter, Restuarant, RestuarantInfo};
