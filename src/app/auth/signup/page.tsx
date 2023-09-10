@@ -2,21 +2,24 @@ import { PrismaClient } from "@prisma/client";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import Link from "next/link";
+import { User } from "../../../../types/global";
 
 export default async function SignUp() {
-  async function doSignUp(formData: FormData) {
+  async function doSignUp(htmlFormData?: FormData) {
     "use server";
 
     const prisma = new PrismaClient();
 
     const salt = bcrypt.genSaltSync(10);
-    const password = bcrypt.hashSync(formData.get("password"), salt);
 
-    const userObject = {
-      username: formData.get("username"),
+    let passwordInput: FormDataEntryValue = htmlFormData?.get("password")!;
+    const password = bcrypt.hashSync(passwordInput.toString(), salt);
+
+    const userObject: User = {
+      username: htmlFormData?.get("username")?.toString()!,
       password,
-      first_name: formData.get("firstName"),
-      last_name: formData.get("lastName"),
+      first_name: htmlFormData?.get("firstName")?.toString()!,
+      last_name: htmlFormData?.get("lastName")?.toString()!,
     };
 
     const userCreated = await prisma.user.create({ data: userObject });
@@ -29,9 +32,7 @@ export default async function SignUp() {
   return (
     <section className="bg-orange">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <h2
-          className="flex items-center mb-6 text-2xl font-semibold text-white"
-        >
+        <h2 className="flex items-center mb-6 text-2xl font-semibold text-white">
           Yummy Foods
         </h2>
         <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
@@ -42,7 +43,7 @@ export default async function SignUp() {
             <form className="space-y-4 md:space-y-6" action={doSignUp}>
               <div>
                 <label
-                  for="email"
+                  htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-900"
                 >
                   Your email
@@ -58,7 +59,7 @@ export default async function SignUp() {
               </div>
               <div>
                 <label
-                  for="password"
+                  htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-900"
                 >
                   Password
@@ -74,7 +75,7 @@ export default async function SignUp() {
               </div>
               <div>
                 <label
-                  for="confirm-password"
+                  htmlFor="confirm-password"
                   className="block mb-2 text-sm font-medium text-gray-900"
                 >
                   Confirm password
@@ -99,7 +100,7 @@ export default async function SignUp() {
                   />
                 </div>
                 <div className="ml-3 text-sm">
-                  <label for="terms" className="font-light text-gray-500">
+                  <label htmlFor="terms" className="font-light text-gray-500">
                     I accept the{" "}
                     <a
                       className="font-medium text-orange hover:underline"

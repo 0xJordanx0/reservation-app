@@ -3,28 +3,32 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { XCircleIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 
+type UserLogin = {
+  username: string;
+  password: string;
+};
 export default function SignUp() {
   const router = useRouter();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<UserLogin>();
   const [isError, setIsError] = useState(false);
 
-  function doSignIn(data: {username: string, password: string}) {
+  function doSignIn(data: UserLogin){
     const { username, password } = data;
 
     signIn("credentials", {
       username,
       password,
       redirect: false,
-      callbackUrl: "/"
+      callbackUrl: "/",
     }).then((data) => {
       if (data?.error) {
         setIsError(true);
-      }else{
-        router.push("/")
+      } else {
+        router.push("/");
         router.refresh();
       }
     });
@@ -47,7 +51,7 @@ export default function SignUp() {
             >
               <div>
                 <label
-                  for="username"
+                  htmlFor="username"
                   className="block mb-2 text-sm font-medium text-gray-900"
                 >
                   Your username
@@ -63,7 +67,7 @@ export default function SignUp() {
               </div>
               <div>
                 <label
-                  for="password"
+                  htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-900"
                 >
                   Password

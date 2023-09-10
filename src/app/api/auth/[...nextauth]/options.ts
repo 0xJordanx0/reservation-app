@@ -24,34 +24,37 @@ const options = {
         },
       },
       async authorize(credentials) {
+        const {username, password} = credentials as {username: string, password: string}
         const user = await prisma.user.findFirst({
           where: {
-            username: credentials?.username,
+            username,
           },
           select: {
+            id: true,
             username: true,
             password: true,
             first_name: true,
             last_name: true,
           },
         });
-        
-        const isValid = await bcrypt.compare(credentials?.password, user?.password);
-       
-        if(isValid){
-          return user;
+        if(user && credentials){
+          const isValid = await bcrypt.compare(password.toString()!, user?.password);
+          if(isValid){
+            return {...user, id: user.id.toString()};
+          }
+        }      
+        return null;
         }
-      },
     }),
   ],
   callbacks: {
-    async jwt({ user, token }) {
+    async jwt({ user, token }:any) {
       if (user) {
         token.user = { ...user };
       }
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token }:any) {
       if (token?.user) {
         session.user = token.user;
       }
