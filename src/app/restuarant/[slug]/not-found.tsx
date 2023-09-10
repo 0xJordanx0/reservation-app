@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import errorPng from "../../../public/error.png"
+import errorPng from "../../../../public/error.png"
 
 export default function Error() {
   return (
