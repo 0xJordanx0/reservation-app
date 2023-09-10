@@ -62,3 +62,12 @@ model Item {
   updated_at DateTime @updatedAt
 }
 
+model User {
+  id  Int @id @default(autoincrement())
+  username String
+  password String
+  first_name String
+  last_name String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
