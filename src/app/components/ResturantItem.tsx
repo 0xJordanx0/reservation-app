@@ -6,9 +6,9 @@ interface Props {
 }
 export default function ResturantItem({ restaurant }: Props) {
   return (
-    <div className="max-w-sm bg-white border border-orange border-gray-200 rounded-lg shadow-md">
+    <div className="max-w-sm bg-white border border-orange rounded-lg shadow-md h-fit">
       <Link href={`/restuarant/${restaurant.slug}`}>
-        <img className="rounded-t-lg" src={restaurant.main_image} />
+        <img className="rounded-t-lg h-56 w-full" src={restaurant.main_image} />
       </Link>
       <div className="p-5">
         <a href="#">
@@ -16,12 +16,12 @@ export default function ResturantItem({ restaurant }: Props) {
             {restaurant.name}
           </h5>
         </a>
-        <p className="mb-3 font-normal text-gray-700">
+        <p className="mb-3 font-normal text-gray-700 line-clamp-3">
           {restaurant.description}
         </p>
         <Link
           href={`/restuarant/${restaurant.slug}`}
-          className="inline-flex items-center w-full justify-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-700 rounded-lg hover:bg-orange-800 focus:ring-0 focus:outline-none"
+          className="inline-flex items-center w-full justify-center px-3 py-2 text-sm font-medium text-center text-white bg-orange rounded-lg focus:ring-0 focus:outline-none"
         >
           View Food
           <svg
