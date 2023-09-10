@@ -16,6 +16,9 @@ export default function NavLinks() {
         <Link href="/#" className="hover:text-white">
           Contact Us
         </Link>
+        <Link href="/api/auth/signin" className="hover:text-white">
+          Login
+        </Link>
       </ul>
     </nav>
   );
