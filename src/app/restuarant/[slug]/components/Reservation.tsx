@@ -1,6 +1,44 @@
-import DatePicker from "./DatePicker";
+"use client";
+import { useState } from "react";
+import DatePicker from "react-datepicker";
+import partySize from "@/data/partySize";
+import { times } from "@/data/times";
 
-export default function Reservation() {
+type Props = {
+  openTime: string;
+  closeTime: string;
+};
+
+export default function Reservation({ openTime, closeTime }: Props) {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+
+  function filterByOpenTime() {
+    const openTimes:typeof times = [];
+
+    let isWithinOpenTime = false;
+
+    times.forEach((time) => {
+      if (!isWithinOpenTime && time.time == openTime) {
+        isWithinOpenTime = true;
+      }
+      if (isWithinOpenTime) {
+        openTimes.push(time);
+      }
+      if (time.time === closeTime) {
+        isWithinOpenTime = false;
+      }
+    });
+
+    return openTimes;
+  }
+
+  function handleChangeDate(date: Date) {
+    if (date) {
+      return setSelectedDate(date);
+    }
+    return setSelectedDate(null);
+  }
+
   return (
     <div className="h-fit flex flex-col gap-2 bg-white p-4 rounded-lg border-[1px]">
       <div className="prose text-xs text-center">
@@ -10,65 +48,29 @@ export default function Reservation() {
       <div>
         <p>People</p>
         <select className="p-2 w-full">
-          <option value="1" selected>
-            1 person
-          </option>
-          <option value="2" selected>
-            2 person
-          </option>
-          <option value="3" selected>
-            3 person
-          </option>
-          <option value="4" selected>
-            4 person
-          </option>
-          <option value="5" selected>
-            5 person
-          </option>
-          <option value="6" selected>
-            6 person
-          </option>
-          <option value="7" selected>
-            7 person
-          </option>
-          <option value="8" selected>
-            8 person
-          </option>
+          {partySize.map((option) => (
+            <option value={option.value}>{option.label}</option>
+          ))}
         </select>
       </div>
       <hr />
       <div className="flex justify-between mt-1">
         <div>
           <p>Date</p>
-          <DatePicker />
+          <DatePicker
+            selected={selectedDate}
+            onChange={handleChangeDate}
+            className="py-3 border-b font-light w-28"
+            dateFormat={"MMMM d"}
+            wrapperClassName="w-[48%]"
+          />
         </div>
         <div>
           <p>Time</p>
           <select className="p-2">
-            <option value="1" selected>
-              1 person
-            </option>
-            <option value="2" selected>
-              2 person
-            </option>
-            <option value="3" selected>
-              3 person
-            </option>
-            <option value="4" selected>
-              4 person
-            </option>
-            <option value="5" selected>
-              5 person
-            </option>
-            <option value="6" selected>
-              6 person
-            </option>
-            <option value="7" selected>
-              7 person
-            </option>
-            <option value="8" selected>
-              8 person
-            </option>
+            {filterByOpenTime().map((time) => (
+              <option value={time.time}>{time.displayTime}</option>
+            ))}
           </select>
         </div>
       </div>

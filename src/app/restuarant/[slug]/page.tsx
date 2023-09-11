@@ -16,6 +16,8 @@ const fetchRestaurant = async(slug: string): Promise<RestuarantInfo> => {
       name: true,
       description: true,
       images: true,
+      open_time: true,
+      close_time: true,
       slug: true
     }
   })
@@ -36,7 +38,7 @@ export default async function Resturant({params}:{params: {slug: string}}) {
         <hr className="my-4" />
         <Overview restaurant={restaurant}/>
       </div>
-      <Reservation />
+      <Reservation openTime={restaurant.open_time} closeTime={restaurant.close_time} />
     </div>
   );
 }
