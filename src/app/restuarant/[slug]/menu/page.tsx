@@ -18,6 +18,8 @@ const fetchItems = async (slug: string): Promise<Item[]> => {
       slug
     },
     select: {
+      open_time: true,
+      close_time: true,
       items: true
     }
   })
@@ -32,13 +34,10 @@ const fetchItems = async (slug: string): Promise<Item[]> => {
 export default async function ResturantMenu({params}:{params: {slug:string}}) {
   const restaurantMenu = await fetchItems(params.slug);
   return (
-    <div className="-mt-20 max-w-7xl mx-auto p-6 grid gap-[5%] grid-cols-[67.5%,27.5%]">
       <div className="bg-white rounded-lg border-[1px] p-4">
         <ResturantNavbar slug={params.slug} />
         <hr className="my-4" />
         <RestaurantMenu restaurantMenu={restaurantMenu} />
       </div>
-      <Reservation />
-    </div>
   );
 }

@@ -6,10 +6,11 @@ import RestuarantNavbar from "./components/RestaurantNavbar";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
-const fetchRestaurant = async(slug: string): Promise<RestuarantInfo> => {
+
+const fetchRestaurant = async (slug: string): Promise<RestuarantInfo> => {
   const restaurant = await prisma.restaurant.findUnique({
-    where:{
-      slug
+    where: {
+      slug,
     },
     select: {
       id: true,
@@ -18,27 +19,23 @@ const fetchRestaurant = async(slug: string): Promise<RestuarantInfo> => {
       images: true,
       open_time: true,
       close_time: true,
-      slug: true
-    }
-  })
+      slug: true,
+    },
+  });
 
-  if(!restaurant){
-    notFound()
+  if (!restaurant) {
+    notFound();
   }
   return restaurant;
-} 
-
+};
 
 export default async function Resturant({params}:{params: {slug: string}}) {
   const restaurant = await fetchRestaurant(params.slug);
   return (
-    <div className="-mt-20 max-w-7xl mx-auto p-6 grid gap-[5%] grid-cols-[67.5%,27.5%]">
-      <div className="bg-white rounded-lg border-[1px] p-4">
-        <RestuarantNavbar slug={restaurant.slug} />
-        <hr className="my-4" />
-        <Overview restaurant={restaurant}/>
-      </div>
-      <Reservation openTime={restaurant.open_time} closeTime={restaurant.close_time} />
+    <div className="bg-white rounded-lg border-[1px] p-4">
+      <RestuarantNavbar slug={restaurant.slug} />
+      <hr className="my-4" />
+      <Overview restaurant={restaurant} />
     </div>
   );
 }
