@@ -32,6 +32,8 @@ interface RestuarantInfo {
   id: number;
   name: string;
   description: string;
+  open_time: string,
+  close_time: string,
   images: string[];
   slug: string;
 }
