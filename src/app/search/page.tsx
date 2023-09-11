@@ -3,10 +3,9 @@ import Header from "./components/Header";
 import Filter from "./components/Filter";
 import FilterToggle from "./components/FilterToggle";
 import Sort from "./components/Sort";
-import { Location, Cuisine, PrismaClient } from "@prisma/client";
+import { Location, Cuisine } from "@prisma/client";
 import { Restuarant, SearchParams } from "../../../types/global";
-
-const prisma = new PrismaClient();
+import prisma from "../backend/prisma";
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },

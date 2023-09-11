@@ -2,14 +2,13 @@ import { Metadata } from "next";
 import Reservation from "../components/Reservation";
 import ResturantNavbar from "../components/RestaurantNavbar";
 import RestaurantMenu from "./components/RestaurantMenu";
-import { Item, PrismaClient } from "@prisma/client";
+import { Item } from "@prisma/client";
+import prisma from "@/app/backend/prisma";
 
 export const metadata: Metadata = {
   title: "Menu Of Alfonso Restuarant | Yummy Foods",
   description: "Online Reservation System",
 };
-
-const prisma = new PrismaClient()
 
 const fetchItems = async (slug: string): Promise<Item[]> => {
   const restaurant = await prisma.restaurant.findUnique({

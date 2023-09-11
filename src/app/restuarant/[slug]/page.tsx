@@ -1,11 +1,8 @@
 import { notFound } from "next/navigation";
 import { RestuarantInfo } from "../../../../types/global";
 import Overview from "./components/Overview";
-import Reservation from "./components/Reservation";
 import RestuarantNavbar from "./components/RestaurantNavbar";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "@/app/backend/prisma";
 
 const fetchRestaurant = async (slug: string): Promise<RestuarantInfo> => {
   const restaurant = await prisma.restaurant.findUnique({

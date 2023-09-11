@@ -1,7 +1,6 @@
 import { Restuarant } from "../../../types/global";
 import ResturantItem from "./ResturantItem";
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import prisma from "../backend/prisma";
 
 const fetchRestauarants = async (): Promise<Restuarant[]> => {
   const restaurants = await prisma.restaurant.findMany({

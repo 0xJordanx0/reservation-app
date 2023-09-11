@@ -3,11 +3,9 @@ import Header from "./components/Header";
 import { Metadata } from "next";
 import "react-datepicker/dist/react-datepicker.css";
 import { notFound } from "next/navigation";
-import { PrismaClient } from "@prisma/client";
 import { RestuarantInfo } from "../../../../types/global";
 import Reservation from "./components/Reservation";
-
-const prisma = new PrismaClient();
+import prisma from "@/app/backend/prisma";
 
 const fetchRestaurant = async (slug: string): Promise<RestuarantInfo> => {
   const restaurant = await prisma.restaurant.findUnique({
