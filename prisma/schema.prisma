@@ -25,6 +25,8 @@ model Restaurant {
   location Location @relation(fields: [location_id], references: [id])
   cuisine_id Int
   cuisine Cuisine @relation(fields: [cuisine_id], references: [id])
+  bookings Booking[]
+  tables Table[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
@@ -70,4 +72,42 @@ model User {
   last_name String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+}
+
+model Booking {
+  id Int @id @default(autoincrement())
+  number_of_people Int
+  booking_time String
+  booker_email String
+  booker_phone String
+  booker_first_name String
+  booker_last_Name String
+  booker_occasion String
+  booker_request String
+  restaurant_id Int
+  restaurant Restaurant @relation(fields: [restaurant_id], references: [id])
+  tables BookingsOnTable[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Table{
+  id Int @id @default(autoincrement())
+  seats Int
+  restaurant_id Int
+  restaurant Restaurant @relation(fields: [restaurant_id], references: [id])
+  bookings BookingsOnTable[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model BookingsOnTable {
+  booking_id Int
+  Booking Booking @relation(fields: [booking_id], references: [id])
+  table_id Int
+  table Table @relation(fields: [table_id], references: [id])
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@id([booking_id, table_id])
 }
