@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { times } from "@/data/times";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "@/app/backend/prisma";
 
 export async function GET(req: NextRequest, {params}:{params: {slug: string}}) {
   const { searchParams } = new URL(req.url);
@@ -98,5 +96,5 @@ export async function GET(req: NextRequest, {params}:{params: {slug: string}}) {
 })
 
 
-  return NextResponse.json({searchTimes, bookings, bookingsTableObj, tables, searchTimesWithTables, availability}); 
+  return NextResponse.json(availability); 
 }
