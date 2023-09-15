@@ -50,6 +50,7 @@ export default async function RestuarantLayout({
         <Reservation
           openTime={restaurant.open_time}
           closeTime={restaurant.close_time}
+          slug={params.slug}
         />
       </div>
     </section>
